@@ -1,22 +1,34 @@
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
-const images = [
-  "/Assets/dummy1.jpg",
-  "/Assets/dummy4.jpg",
-  "/Assets/dummy3.jpg",
-];
+import { getCarousel } from "../services/Divisi";
 
 const Carousel = () => {
+  const [images, setImages] = useState([]);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
+    const fetchCarousel = async () => {
+      try {
+        const res = await getCarousel();
+        const imageList = res.map((item) => item.img);
+        setImages(imageList);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCarousel();
+  }, []);
+
+  useEffect(() => {
+    if (images.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [images]);
 
   const prevSlide = () => {
     setCurrent((prev) =>
@@ -30,12 +42,15 @@ const Carousel = () => {
     );
   };
 
+  if (images.length === 0) return null;
+
   return (
     <div className="relative w-4/5 md:w-3/6 2xl:w-4/6 h-60 mt-8 rounded-lg overflow-hidden">
       <div
         className="w-full h-full bg-cover bg-center transition-all duration-700"
-        style={{ backgroundImage: `url(${images[current]})` }}
-      ></div>
+style={{
+    backgroundImage: `url(http://localhost:3008/uploads/${images[current]})`
+  }}      ></div>
 
       <button
         onClick={prevSlide}
@@ -58,6 +73,6 @@ const Carousel = () => {
       </button>
     </div>
   );
-}
+};
 
-export default Carousel
+export default Carousel;

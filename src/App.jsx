@@ -18,7 +18,9 @@ import UpcomingEvent from "./components/UpcomingEvent.jsx";
 import { Link } from "react-router-dom";
 import Blogs from "./components/Blogs.jsx";
 import Footer from "./components/Footer.jsx";
-
+// tambahan danish
+import { getPrestasi, getBlog } from "./services/Divisi.js";
+import { useNavigate } from "react-router-dom";
 const App = () => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -33,8 +35,33 @@ const App = () => {
   useEffect(() => {
     AOS.refresh();
   }, []);
+// tambahan danish
+   const [prestasi, setPrestasi] = useState([]);
+   const [blog, setBlog] = useState([]);
+   const navigate = useNavigate();
+    useEffect(() => {
+       const fetchPrestasi = async () => {
+         try {
+           const data = await getPrestasi();
+           setPrestasi(data);
+         } catch (err) {
+           setError("Gagal mengambil data pengurus");
+         }
+       };
+       fetchPrestasi();
+     }, []);
 
-
+    useEffect(() => {
+       const fetchBlog = async () => {
+         try {
+           const data = await getBlog();
+           setBlog(data);
+         } catch (err) {
+           setError("Gagal mengambil data pengurus");
+         }
+       };
+       fetchBlog();
+     }, []);
   return (
     // note1
     <div className="relative w-full overflow-x-hidden">
@@ -506,33 +533,16 @@ const App = () => {
           </Link>
         </div>
         <div className="pt-7 grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-6 gap-5">
-          <Card
-            date="17 Agustus 1945"
-            location="Pamulang, UAE"
-            title="Juara 1 lomba balap karung di Standford University"
-            aos="zoom-in"
-          />
-          <Card
-            date="17 Agustus 1945"
-            location="Pamulang, UAE"
-            title="Juara 1 lomba balap karung di Standford University"
-            aos="zoom-in"
-            aosDelay="100"
-          />
-          <Card
-            date="17 Agustus 1945"
-            location="Pamulang, UAE"
-            title="Juara 1 lomba balap karung di Standford University"
-            aos="zoom-in"
-            aosDelay="200"
-          />
-          <Card
-            date="17 Agustus 1945"
-            location="Pamulang, UAE"
-            title="Juara 1 lomba balap karung di Standford University"
-            aos="zoom-in"
-            aosDelay="300"
-          />
+          {prestasi.map((idx) => (
+        <Card
+          key={idx.id}
+          id={idx.id}
+          date={idx.tanggal}
+          location={idx.lokasi}
+          title={idx.judul}
+          image={`http://localhost:3008/uploads/${idx.img}`}
+        />
+        ))}
         </div>
       </div>
       <UpcomingEvent aos="zoom-out" />
@@ -561,14 +571,22 @@ const App = () => {
                 </p>
               </div>
             </div>
-
             <div className="w-full md:w-4/6 flex flex-col gap-5">
-            
-              <Blogs date="17 Agustus 1945" title="Top 3 Koin Micin Yang Akan Membuat Kalian Pensiun Dini" aos="zoom-in" aosDelay="300" />
-              <Blogs date="17 Agustus 1945" title="Top 3 Koin Micin Yang Akan Membuat Kalian Pensiun Dini" aos="zoom-in" aosDelay="400"/>
-              <Blogs date="17 Agustus 1945" title="Top 3 Koin Micin Yang Akan Membuat Kalian Pensiun Dini" aos="zoom-in" aosDelay="500"/>
-           
-
+            {blog.map((idx) => (
+  <div
+    key={idx.id}
+    onClick={() => navigate("/blogs", { state: { selectedId: idx.id } })}
+    className="cursor-pointer"
+  >
+    <Blogs
+      date={idx.date}
+      judul={idx.judul}
+      image={`http://localhost:3008/uploads/${idx.img}`}
+      aos="zoom-in"
+      aosDelay="300"
+    />
+  </div>
+))}
               <div className="flex md:hidden justify-center pt-4">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <span className="font-semibold text-sm">see more</span>

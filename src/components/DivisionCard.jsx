@@ -41,8 +41,12 @@ const DivisionCard = ({ label, image, text, type = "default" }) => {
         </div>
       </div>
 
-      <div className="h-[220px] w-full overflow-hidden rounded-md">
-        <img src={image} alt={label} className="w-full h-full object-cover" />
+       <div className="w-full h-[195px] overflow-hidden rounded-md mb-3 shrink-0">
+        <img
+          src={image}
+          alt={label}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       <div className="w-full flex-1 flex items-center justify-center text-center px-3">
