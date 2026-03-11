@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPrestasi } from "../services/Divisi";
+import { getPrestasi } from "../services/DB";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosCalendar } from "react-icons/io";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { getCarousel } from "../services/Divisi";
+import { getCarousel } from "../services/DB";
 
 const Carousel = () => {
   const [images, setImages] = useState([]);

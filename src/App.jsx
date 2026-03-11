@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import Blogs from "./components/Blogs.jsx";
 import Footer from "./components/Footer.jsx";
 // tambahan danish
-import { getPrestasi, getBlog } from "./services/Divisi.js";
+import { getPrestasi, getBlog } from "./services/DB.js";
 import { useNavigate } from "react-router-dom";
 const App = () => {
   const [open, setOpen] = useState(false);
@@ -573,20 +573,20 @@ const App = () => {
             </div>
             <div className="w-full md:w-4/6 flex flex-col gap-5">
             {blog.map((idx) => (
-  <div
-    key={idx.id}
-    onClick={() => navigate("/blogs", { state: { selectedId: idx.id } })}
-    className="cursor-pointer"
-  >
-    <Blogs
-      date={idx.date}
-      judul={idx.judul}
-      image={`http://localhost:3008/uploads/${idx.img}`}
-      aos="zoom-in"
-      aosDelay="300"
-    />
-  </div>
-))}
+              <div
+                key={idx.id}
+                onClick={() => navigate("/blogs", { state: { selectedId: idx.id } })}
+                className="cursor-pointer"
+              >
+                <Blogs
+                  date={idx.date}
+                  judul={idx.judul}
+                  image={`http://localhost:3008/uploads/${idx.img}`}
+                  aos="zoom-in"
+                  aosDelay="300"
+                />
+              </div>
+            ))}
               <div className="flex md:hidden justify-center pt-4">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <span className="font-semibold text-sm">see more</span>

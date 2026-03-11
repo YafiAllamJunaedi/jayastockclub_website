@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer.jsx";
-import { getBlog } from "../services/Divisi";
+import { getBlog } from "../services/DB.js";
 import BlogNav from "../components/BlogNav.jsx";
 import { useLocation } from "react-router-dom";
 
@@ -19,7 +19,6 @@ const LatestBlogs = () => {
         const data = await getBlog();
         setBlogs(data);
 
-        // TAMBAHAN: cari blog yang diklik
         if (selectedId) {
           const foundBlog = data.find(
             (item) => Number(item.id) === Number(selectedId)
@@ -35,7 +34,7 @@ const LatestBlogs = () => {
     };
 
     fetchBlog();
-  }, [selectedId]); // TAMBAHAN dependency
+  }, [selectedId]);
 
   return (
     <div className="min-h-screen flex flex-col">
