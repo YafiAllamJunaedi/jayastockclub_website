@@ -28,9 +28,7 @@ const RegisterAdmin = () => {
         confPassword
       });
 
-      alert("Register berhasil");
-
-      navigate("/");
+      navigate("/admin/login");
 
     } catch (error) {
 

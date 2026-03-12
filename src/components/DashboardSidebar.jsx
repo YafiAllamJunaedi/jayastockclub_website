@@ -21,7 +21,7 @@ const DashboardSidebar = () => {
   const location = useLocation();
 
   const sideMenu = [
-    { path: '/admin/blogs', icon: <IoHome />, label: 'Home' },
+    { path: '/admin', icon: <IoHome />, label: 'Home' },
     { path: '/admin/blogs', icon: <IoMdPaper/>, label: 'Blog' },
     { path: '/admin/gallery', icon: <IoCard />, label: 'Gallery' },
     { path: '/admin/achievement', icon: <IoTrophy />, label: 'Achievement' },
@@ -47,7 +47,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className='w-full h-full flex justify-center border-e-2 flex-col py-6 bg-gradient-to-t from-[#003835]/20 to-[#007471]/10 '>
+    <div className='w-full h-full flex justify-center flex-col py-6 bg-gradient-to-t from-[#003835]/20 to-[#007471]/10 '>
 
         <div className='parent utama w-full h-full flex flex-col j items-center'>
 

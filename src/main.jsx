@@ -62,6 +62,7 @@ import Layout from './utils/Layout.jsx';
 
 // ADMIN PAGES
 import Login from './pages/admin/Login.jsx';
+import RegisterAdmin from './pages/admin/RegisterAdmin.jsx'
 import BlogsDashboard from './pages/admin/dashboard/BlogsDashboard.jsx';
 import AchievementDashboard from './pages/admin/dashboard/AchievementDashboard.jsx';
 import DivisionsDashboard from './pages/admin/dashboard/DivisionsDashboard.jsx';
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
   {
     path: "/admin/login",
     element: <Login />,
+  },
+  {
+    path: "/admin/reg",
+    element: <RegisterAdmin />,
   },
 
   {

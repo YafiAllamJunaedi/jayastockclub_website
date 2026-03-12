@@ -21,7 +21,7 @@ const AchievementAddModal = ({ onClose }) => {
       fields={[
         { name: "judul", label: "Title", type: "text" },
         { name: "img", label: "Image", type: "file" },
-        { name: "tanggal", label: "Date", type: "text" },
+        { name: "tanggal", label: "Date", type: "date" },
         { name: "lokasi", label: "Location", type: "text" },
         { name: "detail", label: "Description", type: "text" },
       ]}
