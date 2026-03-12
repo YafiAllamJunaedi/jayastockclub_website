@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import React from 'react';
-import DivisionCard from "../components/DivisionCard.jsx";
-import { getPengurus } from "../services/Divisi.js";
+import DivisionCard from "../../components/DivisionCard.jsx";
+import { getPengurus } from "../../services/DB.js";
 
 const Divisions = () => {
   const [pengurus, setPengurus] = useState([]);
@@ -31,14 +30,15 @@ const Divisions = () => {
         <div className="w-full h-full flex justify-center items-center">
           <div className="bg-yellow- w-full space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
-            {pengurus.map((idx) => (
-              <DivisionCard
-                key={idx.id}
-                label={idx.Divisi}
-                image={`http://localhost:3008/uploads/${idx.img}`}
-                text={idx.about}
-                type={Math.random() > 0.5 ? "hijau" : "default"}/>
-            ))}
+              {pengurus.map((idx) => (
+                <DivisionCard
+                  key={idx.id}
+                  label={idx.Divisi}
+                  image={`http://localhost:3008/uploads/${idx.img}`}
+                  text={idx.about}
+                  type={Math.random() > 0.5 ? "hijau" : "default"}
+                />
+              ))}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Footer from "../components/Footer.jsx";
-import { getBlog } from "../services/DB.js";
-import BlogNav from "../components/BlogNav.jsx";
+import Footer from "../../components/Footer.jsx";
+import { getBlog } from "../../services/DB.js";
+import BlogNav from "../../components/BlogNav.jsx";
 import { useLocation } from "react-router-dom";
 
 const LatestBlogs = () => {
@@ -13,7 +13,6 @@ const LatestBlogs = () => {
   const selectedId = location.state?.selectedId;
 
   useEffect(() => {
-
     const fetchBlog = async () => {
       try {
         const data = await getBlog();
@@ -21,13 +20,12 @@ const LatestBlogs = () => {
 
         if (selectedId) {
           const foundBlog = data.find(
-            (item) => Number(item.id) === Number(selectedId)
+            (item) => Number(item.id) === Number(selectedId),
           );
           setSelectedBlog(foundBlog || data[0]);
         } else {
           setSelectedBlog(data[0]);
         }
-
       } catch (err) {
         console.error(err);
       }
@@ -40,11 +38,7 @@ const LatestBlogs = () => {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
         <div className="w-full flex flex-col md:flex-row p-4 md:p-10 gap-5">
-
-          <BlogNav 
-            blogs={blogs}
-            onSelectBlog={setSelectedBlog}
-          />
+          <BlogNav blogs={blogs} onSelectBlog={setSelectedBlog} />
 
           {selectedBlog && (
             <div className="w-full md:w-9/12 p-3 order-1 md:order-2">
@@ -64,7 +58,6 @@ const LatestBlogs = () => {
               </div>
             </div>
           )}
-
         </div>
       </main>
 

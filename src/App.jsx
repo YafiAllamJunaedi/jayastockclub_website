@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import AOS from "aos";
 import Square from "./components/Square.jsx";
 import Card from "./components/Card.jsx";
@@ -15,12 +16,9 @@ import { MdGroups } from "react-icons/md";
 import { LuArrowUpRight, LuSchool } from "react-icons/lu";
 import Carousel from "./components/Carousel.jsx";
 import UpcomingEvent from "./components/UpcomingEvent.jsx";
-import { Link } from "react-router-dom";
 import Blogs from "./components/Blogs.jsx";
 import Footer from "./components/Footer.jsx";
-// tambahan danish
 import { getPrestasi, getBlog } from "./services/DB.js";
-import { useNavigate } from "react-router-dom";
 const App = () => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
