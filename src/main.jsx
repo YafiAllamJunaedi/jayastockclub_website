@@ -50,6 +50,7 @@ import App from './App.jsx'
 import "aos/dist/aos.css";
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 // USER PAGES
 import Divisions from './pages/user/Divisions.jsx';
@@ -113,23 +114,38 @@ const router = createBrowserRouter([
     children: [
       {
         path: "blogs",
-        element: <BlogsDashboard />,
+        element: 
+        <ProtectedRoute>
+          <BlogsDashboard />
+        </ProtectedRoute> ,
       },
       {
         path: "gallery",
-        element: <GalleryDashboard />,
+        element:
+        <ProtectedRoute>
+          <GalleryDashboard />
+        </ProtectedRoute>
       },
       {
         path: "achievement",
-        element: <AchievementDashboard />,
+        element: 
+        <ProtectedRoute>
+          <AchievementDashboard />
+        </ProtectedRoute>
       },
       {
         path: "divisions",
-        element: <DivisionsDashboard />,
+        element: 
+        <ProtectedRoute>
+          <DivisionsDashboard />
+        </ProtectedRoute>
       },
       {
         path: "carousel",
-        element: <CarouselDashboard />,
+        element: 
+        <ProtectedRoute>
+          <CarouselDashboard />
+        </ProtectedRoute>
       },
     ],
   },

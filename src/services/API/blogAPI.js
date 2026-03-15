@@ -1,43 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:3008",
+  withCredentials: true,
+});
 
 export const getBlog = async () => {
-  try {
-    const response = await axios.get('http://localhost:3008/blog/get');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching blog:', error);
-    return [];
-  }
+  const res = await api.get("/blog/get");
+  return res.data;
 };
 
-export const createBlog = async (clientData) => {
-  try {
-    const response = await axios.post("http://localhost:3008/blog/post", clientData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating blog:", error);
-    throw error;
-  }
+export const createBlog = async (data) => {
+  const res = await api.post("/blog/post", data);
+  return res.data;
 };
 
-export const editBlog = async (id, formData) => {
-  try {
-    const response = await axios.put(
-      `http://localhost:3008/blog/update/${id}`,
-      formData
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error updating blog:", error);
-    throw error;
-  }
+export const editBlog = async (id, data) => {
+  const res = await api.put(`/blog/update/${id}`, data);
+  return res.data;
 };
+
 export const deleteBlog = async (id) => {
-  try {
-    const response = await axios.delete(`http://localhost:3008/blog/delete/${id}`);
-      return response.data
-  } catch (error){
-    console.error("error deleting blog", error);
-    throw(error);
-  }
+  const res = await api.delete(`/blog/delete/${id}`);
+  return res.data;
 };

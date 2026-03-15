@@ -36,6 +36,7 @@ const App = () => {
 // tambahan danish
    const [prestasi, setPrestasi] = useState([]);
    const [blog, setBlog] = useState([]);
+   const [error, setError] = useState(null);
    const navigate = useNavigate();
     useEffect(() => {
        const fetchPrestasi = async () => {

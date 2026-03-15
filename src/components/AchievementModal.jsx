@@ -44,19 +44,15 @@ const AchievementModal = ({ id, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-      <div className="bg-white w-[400px] max-h-[75vh] overflow-y-auto p-6 rounded-lg relative">
-        <button
-          onClick={onClose}
-          className="absolute top-0 right-2 text-lg font-bold"
-        >
-          ✕
-        </button>
-
+      <div className="bg-white w-[400px] max-h-[75vh] overflow-x-hidden overflow-y-auto p-6 rounded-lg relative">
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
 
         {data && (
           <div className="w-full h-full">
+            <div className="w-[350px] h-9 flex justify-end items-center ">
+              <button onClick={onClose} className="w-8 h-8 shadow rounded hover:bg-red-500 flex justify-center items-center font-bold">X</button>
+            </div>
             <div className="w-full">
               <img
                 src={`http://localhost:3008/uploads/${data.img}`}

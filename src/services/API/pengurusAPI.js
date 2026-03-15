@@ -1,43 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:3008",
+  withCredentials: true,
+});
 
 export const getPengurus = async () => {
-  try {
-    const response = await axios.get('http://localhost:3008/pengurus/get');
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching pengurus:', error);
-    return [];
-  }
+  const res = await api.get("/pengurus/get");
+  return res.data;
 };
 
-export const createPengurus = async (clientData) => {
-  try {
-    const response = await axios.post("http://localhost:3008/pengurus/post", clientData);
-    return response.data;
-  } catch (error) {
-    console.error("Error creating pengurus:", error);
-    throw error;
-  }
+export const createPengurus = async (data) => {
+  const res = await api.post("/pengurus/post", data);
+  return res.data;
 };
 
-export const editPengurus = async (id, formData) => {
-  try {
-    const response = await axios.put(
-      `http://localhost:3008/pengurus/update/${id}`,
-      formData
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error updating pengurus:", error);
-    throw error;
-  }
+export const editPengurus = async (id, data) => {
+  const res = await api.put(`/pengurus/update/${id}`, data);
+  return res.data;
 };
+
 export const deletePengurus = async (id) => {
-  try {
-    const response = await axios.delete(`http://localhost:3008/pengurus/delete/${id}`);
-      return response.data
-  } catch (error){
-    console.error("error deleting pengurus", error);
-    throw(error);
-  }
+  const res = await api.delete(`/pengurus/delete/${id}`);
+  return res.data;
 };
