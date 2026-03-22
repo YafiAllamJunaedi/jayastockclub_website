@@ -33,34 +33,33 @@ const App = () => {
   useEffect(() => {
     AOS.refresh();
   }, []);
-// tambahan danish
-   const [prestasi, setPrestasi] = useState([]);
-   const [blog, setBlog] = useState([]);
-   const [error, setError] = useState(null);
-   const navigate = useNavigate();
-    useEffect(() => {
-       const fetchPrestasi = async () => {
-         try {
-           const data = await getPrestasi();
-           setPrestasi(data);
-         } catch (err) {
-           setError("Gagal mengambil data pengurus");
-         }
-       };
-       fetchPrestasi();
-     }, []);
+  const [prestasi, setPrestasi] = useState([]);
+  const [blog, setBlog] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchPrestasi = async () => {
+      try {
+        const data = await getPrestasi();
+        setPrestasi(data);
+      } catch (err) {
+        setError("Gagal mengambil data pengurus");
+      }
+    };
+    fetchPrestasi();
+  }, []);
 
-    useEffect(() => {
-       const fetchBlog = async () => {
-         try {
-           const data = await getBlog();
-           setBlog(data);
-         } catch (err) {
-           setError("Gagal mengambil data pengurus");
-         }
-       };
-       fetchBlog();
-     }, []);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const data = await getBlog();
+        setBlog(data);
+      } catch (err) {
+        setError("Gagal mengambil data pengurus");
+      }
+    };
+    fetchBlog();
+  }, []);
   return (
     // note1
     <div className="relative w-full overflow-x-hidden">
@@ -409,6 +408,8 @@ const App = () => {
         </div>
       </div>
 
+      <div></div>
+
       {/*  */}
       <div
         className="w-full min-h-[90vh] md:flex md:justify-between bg-black p-10"
@@ -416,7 +417,6 @@ const App = () => {
       >
         <div className="w-full md:w-2/5 h-auto p-10">
           <div className="flex gap-3 items-center md:justify-start justify-center">
-            {/* 80% Buat cocokin logo, keyword : star */}
             <PiStarFourFill className="text-white" />
             <p className="text-xl md:text-sm text-center font-semibold text-white">
               Our Activities
@@ -439,6 +439,16 @@ const App = () => {
             <img
               src="/Assets/dummy4.jpg"
               className="w-44 h-32 relative rounded-lg bottom-10"
+              alt=""
+            />
+            <img
+              src="/Assets/dummy3.jpg"
+              className="hidden 2xl:block w-44 h-32 relative left-32 bottom-15 rounded-lg"
+              alt=""
+            />
+            <img
+              src="/Assets/dummy4.jpg"
+              className="hidden 2xl:block w-44 h-32 relative rounded-lg bottom-19"
               alt=""
             />
           </div>
@@ -532,22 +542,44 @@ const App = () => {
           </Link>
         </div>
         <div className="pt-7 grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-6 gap-5">
-          {prestasi.map((idx) => (
-        <Card
-          key={idx.id}
-          id={idx.id}
-          date={idx.tanggal}
-          location={idx.lokasi}
-          title={idx.judul}
-          image={`http://localhost:3008/uploads/${idx.img}`}
-        />
-        ))}
+          {prestasi.map((idx, i) => {
+            const isHiddenDefault = i >= 4;
+            const isHidden2xl = i >= 6;
+
+            return (
+              <div
+                key={idx.id}
+                className={`
+        ${isHiddenDefault ? "hidden 2xl:block" : ""}
+        ${isHidden2xl ? "2xl:hidden" : ""}
+      `}
+              >
+                <Card
+                  key={idx.id}
+                  id={idx.id}
+                  date={idx.tanggal}
+                  location={idx.lokasi}
+                  title={idx.judul}
+                  detail={idx.detail}
+                  image={`http://localhost:3008/uploads/${idx.img}`}
+                />
+              </div>
+            );
+          })}
+          <div className="flex justify-center pt-6 md:hidden">
+            <Link
+              to="/achievements"
+              className="text-[#003835] text-lg font-semibold underline"
+            >
+              see more
+            </Link>
+          </div>
         </div>
       </div>
       <UpcomingEvent aos="zoom-out" />
 
       {/* Latest Blogs */}
-      <div className="w-full min-h-[80vh] bg-white p-5 md:p-10" id="education">
+      <div className="w-full min-h-[60vh] bg-white p-5 md:p-10" id="education">
         <div className="w-full bg-neutral-200 rounded-sm p-5 md:p-7">
           <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center border-b border-neutral-400 pb-4">
             <p className="text-xl md:text-4xl font-semibold text-center md:text-left">
@@ -563,29 +595,43 @@ const App = () => {
           </div>
 
           <div className="w-full flex flex-col md:flex-row gap-5 pt-5">
-            <div className="relative hidden md:block md:w-3/6 h-[53vh] bg-[url('/Assets/main.jpg')] bg-cover bg-no-repeat overflow-hidden">
+            <div
+              className="relative hidden md:block md:w-3/6 h-[53vh] 2xl:h-[50.5vh] bg-cover bg-no-repeat overflow-hidden cursor-pointer hover:scale-105 transition duration-300"
+              style={{
+                backgroundImage: `url(http://localhost:3008/uploads/${blog[0]?.img})`,
+              }}
+              onClick={() =>
+                navigate("/blogs", { state: { selectedId: blog[0]?.id } })
+              }
+              data-aos="zoom-in"
+              data-aos-delay="250"
+            >
               <div className="absolute inset-0 bg-black/40 flex items-end p-8">
                 <p className="text-white font-bold text-3xl">
-                  TOP 3 SAHAM YANG AKAN x500 DI TAHUN 2026 😮
+                  {blog[0]?.judul}
                 </p>
               </div>
             </div>
             <div className="w-full md:w-4/6 flex flex-col gap-5">
-            {blog.map((idx) => (
-              <div
-                key={idx.id}
-                onClick={() => navigate("/blogs", { state: { selectedId: idx.id } })}
-                className="cursor-pointer"
-              >
-                <Blogs
-                  date={idx.date}
-                  judul={idx.judul}
-                  image={`http://localhost:3008/uploads/${idx.img}`}
-                  aos="zoom-in"
-                  aosDelay="300"
-                />
-              </div>
-            ))}
+              {blog.slice(1, 5).map((idx, i) => (
+                <div
+                  key={idx.id}
+                  onClick={() =>
+                    navigate("/blogs", { state: { selectedId: idx.id } })
+                  }
+                  className={`cursor-pointer ${
+                    i >= 3 ? "hidden 2xl:block" : ""
+                  }`}
+                >
+                  <Blogs
+                    date={idx.date}
+                    judul={idx.judul}
+                    image={`http://localhost:3008/uploads/${idx.img}`}
+                    aos="zoom-in"
+                    aosDelay="300"
+                  />
+                </div>
+              ))}
               <div className="flex md:hidden justify-center pt-4">
                 <div className="flex items-center gap-1 cursor-pointer">
                   <span className="font-semibold text-sm">see more</span>
@@ -597,7 +643,7 @@ const App = () => {
         </div>
       </div>
 
-      <div className="w-full min-h-[50vh] pt-10" id="patrnership">
+      <div className="w-full min-h-[38vh] pt-10" id="patrnership">
         <p className="text-center text-neutral-400 font-semibold 2xl:text-xl">
           Affiliated By
         </p>

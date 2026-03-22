@@ -2,14 +2,14 @@ import React from 'react'
 import axios from 'axios';
 // import logo from './asset/logo.png'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IoCaretForwardOutline, IoHome, IoPeople, IoPerson, IoCard, IoTrophy } from "react-icons/io5";
+import { IoCaretForwardOutline, IoPeople, IoPerson, IoCard, IoTrophy } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
 import { IoMdPaper } from 'react-icons/io';
 
 const MenuItem = ({ path, icon, label, isActive, onClick }) => (
-  <div className={`${isActive ? 'rounded-sm border-e-[5px] border-[#003835]':''}`}>
+  <div className={`${isActive ? 'rounded-sm border-e-[5px] border-[#003835] ':''}`}>
     <div className='flex items-center justify-center w-full h-full font-semibold teksSide text-[#007471]'>
-        <p className={`w-2/3 font-semibold cursor-default px-2 py-1 items-center rounded-md flex justify-between ${isActive ? 'bg-gradient-to-l from-[#003835] to-[#007471] text-white' : ''}`} onClick={onClick}>
+        <p className={`w-2/3 font-semibold px-2 py-1 items-center rounded-md flex justify-between cursor-pointer ${isActive ? 'bg-linear-to-l from-[#003835] to-[#007471] text-white' : ''}`} onClick={onClick}>
         {label} {icon}</p>
     </div>
   </div>
@@ -21,7 +21,6 @@ const DashboardSidebar = () => {
   const location = useLocation();
 
   const sideMenu = [
-    { path: '/admin', icon: <IoHome />, label: 'Home' },
     { path: '/admin/blogs', icon: <IoMdPaper/>, label: 'Blog' },
     { path: '/admin/gallery', icon: <IoCard />, label: 'Gallery' },
     { path: '/admin/achievement', icon: <IoTrophy />, label: 'Achievement' },
@@ -47,7 +46,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <div className='w-full h-full flex justify-center flex-col py-6 bg-gradient-to-t from-[#003835]/20 to-[#007471]/10 '>
+    <div className='w-full h-full flex justify-center flex-col py-6 bg-linear-to-t from-[#003835]/20 to-[#007471]/10 '>
 
         <div className='parent utama w-full h-full flex flex-col j items-center'>
 

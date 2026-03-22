@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 import Footer from "../../components/Footer.jsx";
 import { getBlog } from "../../services/DB.js";
 import BlogNav from "../../components/BlogNav.jsx";
-import { useLocation } from "react-router-dom";
 
 const LatestBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
 
-  // TAMBAHAN
   const location = useLocation();
   const selectedId = location.state?.selectedId;
 
@@ -38,7 +37,14 @@ const LatestBlogs = () => {
     <div className="min-h-screen flex flex-col">
       <main className="flex-1">
         <div className="w-full flex flex-col md:flex-row p-4 md:p-10 gap-5">
-          <BlogNav blogs={blogs} onSelectBlog={setSelectedBlog} />
+      <Link className="text-black text-xl font-semibold md:hidden" to="/">
+        ✕
+      </Link>
+          <BlogNav
+            blogs={blogs}
+            onSelectBlog={setSelectedBlog}
+            selectedBlog={selectedBlog}
+          />
 
           {selectedBlog && (
             <div className="w-full md:w-9/12 p-3 order-1 md:order-2">
@@ -50,11 +56,20 @@ const LatestBlogs = () => {
 
               <div className="w-full flex flex-col items-center pt-3">
                 <img
-                  className="w-32"
+                  className="w-64"
                   src={`http://localhost:3008/uploads/${selectedBlog.img}`}
                   alt={selectedBlog.judul}
                 />
-                <p className="p-3">{selectedBlog.paper}</p>
+                <p className="p-3">
+                  <span className="font-bold">
+                    (
+                    {new Date(selectedBlog.date)
+                      .toLocaleDateString("en-CA")
+                      .replace(/-/g, "/")}
+                    ){" "}
+                  </span>{" "}
+                  - {selectedBlog.paper}
+                </p>
               </div>
             </div>
           )}

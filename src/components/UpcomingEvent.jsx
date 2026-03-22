@@ -1,40 +1,41 @@
 import { useEffect, useState } from "react";
-import EventCard from "./EventCard";
+import EventCard from "./EventCard.jsx";
 
-const events = Array.from({ length: 20 });
+const events = Array.from({ length: 30 });
+const getConfig = () => {
+  const width = window.innerWidth;
 
-// ! NOTES : kalo API nya udah ada ganti aja events disini jadi API nya
+  if (width < 640) {
+    return { initial: 3, increment: 3, max: 6 };
+  } else if (width >= 1536) {
+    return { initial: 7, increment: 7, max: 14 };
+  } else {
+    return { initial: 5, increment: 5, max: 10 };
+  }
+};
 
 const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [initialCount, setInitialCount] = useState(5);
-  const [visibleCount, setVisibleCount] = useState(5);
+  const [screenType, setScreenType] = useState("desktop");
+  const { initial } = getConfig();
+
+  const [initialCount, setInitialCount] = useState(initial);
+  const [visibleCount, setVisibleCount] = useState(initial);
 
   useEffect(() => {
-    const checkScreen = () => {
-      const mobile = window.innerWidth < 768;
-      const init = mobile ? 3 : 5;
+    const { initial } = getConfig();
 
-      setIsMobile(mobile);
-      setInitialCount(init);
-      setVisibleCount(init);
-    };
-
-    checkScreen();
-    window.addEventListener("resize", checkScreen);
-    return () => window.removeEventListener("resize", checkScreen);
+    setInitialCount(initial);
+    setVisibleCount(initial);
   }, []);
 
   const handleSeeMore = () => {
-    setVisibleCount((prev) =>
-      Math.min(prev + (isMobile ? 3 : 5), events.length),
-    );
-  };
+    const { increment, max } = getConfig();
 
+    setVisibleCount((prev) => Math.min(prev + increment, max));
+  };
   const handleSeeLess = () => {
     setVisibleCount(initialCount);
   };
-
   return (
     <div
       className="w-full min-h-[70vh] 2xl:min-h-[58vh] px-4 md:px-10 py-8"
@@ -46,18 +47,22 @@ const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
         </p>
 
         <div
-          className="w-full grid grid-cols-1 md:grid-cols-5 2xl:grid-cols-7 gap-5 p-4 mt-6"
-          data-aos={`${aos}`}
-          data-aos-delay={`${aosDelay}`}
-          data-aos-duration={`${aosDuration}`}
+          className="w-full grid grid-cols-1 md:grid-cols-5 2xl:grid-cols-7 md:gap-5 gap-10 p-4 mt-6"
+          data-aos={aos}
+          data-aos-delay={aosDelay}
+          data-aos-duration={aosDuration}
         >
           {events.slice(0, visibleCount).map((_, i) => (
-            <EventCard key={i} />
+            <EventCard
+              key={i}
+              img="/Assets/event_dummy.jpg"
+              link="https://www.instagram.com/p/DT-LYclkb0G/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+            />
           ))}
         </div>
 
         <div className="flex justify-center gap-6 pt-5 text-white font-semibold">
-          {visibleCount < events.length && (
+          {visibleCount < getConfig().max && (
             <button
               onClick={handleSeeMore}
               className="underline hover:opacity-80 cursor-pointer"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import DashboardSidebar from "../../../components/DashboardSidebar.jsx";
 import DetailPanel from "../../../components/DetailPanel.jsx";
@@ -97,14 +97,11 @@ const GalleryDashboard = () => {
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
       <child gallery = {gallery} setGallery = {setGallery}/>
-      {/* SIDEBAR */}
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
 
-      {/* MAIN CONTENT */}
       <div className="w-7/12 md:w-9/12 lg:w-10/12 h-full flex flex-col bg-slate-100">
-        {/* HEADER */}
         <div className="flex justify-center items-center w-full lg:h-[60px] bg-slate-200 bg-graent-to-l from-[#003835]/40 to-[#007471]/40">
           <div className="w-full px-6 flex justify-between items-center">
             <p className="text-xl font-semibold">Gallery</p>
@@ -121,16 +118,14 @@ const GalleryDashboard = () => {
         {isFormVisible && <GalleryAddModal onClose={handleCloseForm} />}
         {isDeleteOpen &&  (<ModalDelete id={selectedGalleryId} onClose={closeDelete} onDelete={handleDeleteSuccess}/>)}
         
-        {/* BODY */}
         <div className="w-full h-full overflow-hidden">
           <div className="flex w-full h-full py-4 gap-4">
-            {/* LIST */}
             <div
               className={`${
                 selected ? "w-1/2" : "w-full"
               } h-full overflow-y-auto transition-all duration-300`}
             >
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4 p-3">
                 {gallery.map((item) => (
                   <DashboardCard
                     key={item.id}
@@ -153,10 +148,9 @@ const GalleryDashboard = () => {
               </div>
             </div>
 
-            {/* DETAIL PANEL */}
              {selected && (
               <DetailPanel
-                title="gallery"
+                title="Gallery"
                 fields={galleryFields}
                 data={selected}
                 Type={selected.type}

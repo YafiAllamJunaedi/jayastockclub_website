@@ -1,7 +1,7 @@
 import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 
-const Blogs = ({image, date, judul = "", aos, aosDelay, aosDuration }) => {
+const Blogs = ({ image, date, judul = "", aos, aosDelay, aosDuration }) => {
   const truncateWords = (text = "", maxWords) => {
     const words = text.split(" ");
     return words.length > maxWords
@@ -11,16 +11,17 @@ const Blogs = ({image, date, judul = "", aos, aosDelay, aosDuration }) => {
 
   return (
     <div
-      className="w-full flex items-center gap-4 cursor-pointer"
+      className="
+      w-full flex items-center gap-4 cursor-pointer
+      transition-transform
+      hover:scale-[1.04]
+      "
       data-aos={`${aos}`}
       data-aos-delay={`${aosDelay}`}
       data-aos-duration={`${aosDuration}`}
     >
       <div className="w-20 h-20 md:w-1/4 md:h-26 shrink-0">
-         <img
-          src={image}
-          className="w-full h-full object-cover"
-        />
+        <img src={image} className="w-full h-full object-cover" />
       </div>
 
       <div className="flex flex-col">
@@ -36,9 +37,7 @@ const Blogs = ({image, date, judul = "", aos, aosDelay, aosDuration }) => {
         </div>
 
         <p className="font-semibold text-base md:text-lg pt-1 leading-snug">
-          <span className="block md:hidden">
-            {truncateWords(judul, 7)}
-          </span>
+          <span className="block md:hidden">{truncateWords(judul, 7)}</span>
 
           <span className="hidden md:block">{judul}</span>
         </p>

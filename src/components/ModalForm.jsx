@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ModalForm = ({ title, fields, onSubmit, onClose, loading }) => {
   const [formData, setFormData] = useState({});
@@ -35,7 +35,7 @@ const ModalForm = ({ title, fields, onSubmit, onClose, loading }) => {
                   required={field.required ?? true}
                   onChange={handleChange}
                   rows={5}
-                  className="border border-gray-300 p-2 w-full resize-none"
+                  className="border border-gray-300 p-2 w-full resize-none text-black"
                 />
               ) : (
                 <input
@@ -43,7 +43,7 @@ const ModalForm = ({ title, fields, onSubmit, onClose, loading }) => {
                   name={field.name}
                   required={field.required ?? true}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full"
+                  className="border border-gray-300 p-2 w-full text-black"
                 />
               )}
             </div>
@@ -53,7 +53,7 @@ const ModalForm = ({ title, fields, onSubmit, onClose, loading }) => {
             <button
               type="button"
               onClick={onClose}
-              className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+              className="bg-red-500 text-white px-4 py-2 rounded mr-2 cursor-pointer"
             >
               Cancel
             </button>
@@ -61,7 +61,7 @@ const ModalForm = ({ title, fields, onSubmit, onClose, loading }) => {
             <button
               type="submit"
               disabled={loading}
-              className="bg-gradient-to-l from-[#003835] to-[#007471] text-white px-4 py-2 rounded"
+              className="bg-linear-to-l from-[#003835] to-[#007471] text-white px-4 py-2 rounded cursor-pointer"
             >
               {loading ? "Submitting..." : "Submit"}
             </button>

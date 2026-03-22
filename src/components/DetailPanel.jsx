@@ -2,8 +2,6 @@ import React, { useState, useRef } from "react";
 import { FaEdit } from "react-icons/fa";
 import { IoTrash } from "react-icons/io5";
 import { FaX } from "react-icons/fa6";
-// import OnOff from "./OnOff";
-// import ModalDeletePengurus from "../Modal/modalDeleteData/ModalDelete";
 
 const Field = ({ label, children }) => (
   <fieldset className="w-full border border-[#007471] rounded-lg px-3">
@@ -58,16 +56,13 @@ const DetailPanel = ({
   const handleDeletePengurus = async () => { if (!selectedPengurusId) return;}
 
   return (
-    <div className="w-1/2 h-full bg-gradient-to-t from-[#003835]/20 to-[#007471]/10 rounded-md">
-      {/* HEADER */}
+    <div className="w-1/2 h-full bg-linear-to-t from-[#003835]/20 to-[#007471]/10 rounded-md">
       <div className="h-[50px] px-5 flex justify-between items-center border-b">
         <p className="text-lg font-semibold">{title}</p>
         <button onClick={onClose}><FaX /></button>
       </div>
 
-      {/* CONTENT */}
       <div className="flex w-full h-4/6px-5">
-        {/* IMAGE */}
         {image && (
           <div className="w-4/12 flex flex-col h-full p-3">
           <img src={image} alt="" className="rounded-t-md w-full" />
@@ -89,7 +84,6 @@ const DetailPanel = ({
         </div>
         )}
 
-        {/* FIELDS */}
         <div className="w-8/12 flex flex-col gap-3 py-3">
           {fields.map((field) => (
             <Field key={field.key} label={field.label}>
@@ -114,7 +108,6 @@ const DetailPanel = ({
         </div>
       </div>
 
-      {/* ACTIONS */}
       <div className="px-8 pt-8 flex flex-col gap-2">
        <div className="w-full flex flex-col gap-3 px-10 pb-4">
         {!isEditing ? (

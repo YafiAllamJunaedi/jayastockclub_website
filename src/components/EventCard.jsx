@@ -1,7 +1,18 @@
-const EventCard = () => {
+const EventCard = ({ img, link }) => {
   return (
-    <div className="bg-white rounded-3xl min-h-[200px]" />
-  )
-}
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block rounded-md h-52 overflow-hidden"
+    >
+      <img
+        className="w-full h-full object-cover"
+        src={img}
+        alt=""
+      />
+    </a>
+  );
+};
 
-export default EventCard
+export default EventCard;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Card from "../../components/Card.jsx";
 import { getPrestasi } from "../../services/DB.js";
 
@@ -18,7 +19,10 @@ const Achievements = () => {
 
   return (
     <div className="w-full min-h-[75vh] p-10">
-      <p className="text-[#003835] text-3xl md:text-4xl font-bold text-center">
+      <Link className="text-black text-xl font-semibold md:hidden" to="/">
+        ✕
+      </Link>
+      <p className="text-[#003835] text-3xl md:text-4xl font-bold text-center pt-15 md:pt-0">
         ACHIEVEMENTS
       </p>
 
@@ -30,14 +34,11 @@ const Achievements = () => {
             date={idx.tanggal}
             location={idx.lokasi}
             title={idx.judul}
+            detail={idx.detail}
             image={`http://localhost:3008/uploads/${idx.img}`}
           />
         ))}
       </div>
-
-      <p className="mt-6 text-[#003835] text-lg font-semibold cursor-pointer block md:hidden text-center">
-        see more
-      </p>
     </div>
   );
 };

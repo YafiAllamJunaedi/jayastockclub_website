@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import DashboardSidebar from "../../../components/DashboardSidebar.jsx";
 import DetailPanel from "../../../components/DetailPanel.jsx";
@@ -98,21 +98,18 @@ const DivisionsDashboard = ({id}) => {
 
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
-      {/* SIDEBAR */}
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
 
-      {/* MAIN CONTENT */}
       <div className="w-7/12 md:w-9/12 lg:w-10/12 h-full flex flex-col bg-slate-100">
-        {/* HEADER */}
         <div className="flex justify-center items-center w-full lg:h-[60px] bg-slate-200 bg-graent-to-l from-[#003835]/40 to-[#007471]/40">
           <div className="w-full px-6 flex justify-between items-center">
             <p className="text-xl font-semibold">Division</p>
 
             <div
               onClick={handleOpenForm}
-              className="w-1/12 text-[12px] gap-1 rounded-sm px-3 py-1 cursor-pointer transition bg-gradient-to-l from-[#003835] to-[#007471] text-white font-semibold flex justify-center items-center"
+              className="w-1/12 text-[12px] gap-1 rounded-sm px-3 py-1 cursor-pointer transition bg-linear-to-l from-[#003835] to-[#007471] text-white font-semibold flex justify-center items-center"
             >
               Add <FaPlus />
             </div>
@@ -128,7 +125,7 @@ const DivisionsDashboard = ({id}) => {
                 selected ? "w-1/2" : "w-full"
               } h-full overflow-y-auto transition-all duration-300`}
             >
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4 p-3">
                 {pengurus.map((item) => (
                   <DashboardCard
                     key={item.id}
@@ -153,10 +150,9 @@ const DivisionsDashboard = ({id}) => {
               </div>
             </div>
 
-            {/* DETAIL PANEL */}
             {selected && (
               <DetailPanel
-                title="Pengurus"
+                title="Divisions"
                 fields={pengurusFields}
                 data={selected}
                 image={`http://localhost:3008/uploads/${selected.img}`}

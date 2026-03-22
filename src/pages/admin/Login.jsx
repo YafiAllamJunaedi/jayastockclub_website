@@ -104,7 +104,7 @@ const Login = () => {
 
           <button
             onClick={handleSubmit}
-            className="cursor-pointer font-bold bg-gradient-to-l from-[#003835] to-[#007471] text-[#c1e1de] w- py-2 rounded-lg"
+            className="cursor-pointer font-bold bg-linear-to-l from-[#003835] to-[#007471] text-white w- py-2 rounded-lg"
           >
             Login
           </button>
