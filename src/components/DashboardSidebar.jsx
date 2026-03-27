@@ -25,14 +25,15 @@ const DashboardSidebar = () => {
     { path: '/admin/gallery', icon: <IoCard />, label: 'Gallery' },
     { path: '/admin/achievement', icon: <IoTrophy />, label: 'Achievement' },
     { path: '/admin/divisions', icon: <IoPeople />, label: 'Division' },
-    { path: '/admin/carousel', icon: <IoCaretForwardOutline />, label: 'Carousel' }
+    { path: '/admin/carousel', icon: <IoCaretForwardOutline />, label: 'Carousel' },
+    { path: '/admin/event', icon: <IoCaretForwardOutline />, label: 'Event' }
   ];
 
   const handleLogout = async () => {
     try {
 
       await axios.delete(
-        "http://localhost:3008/admin/logout",
+        "http://localhost:5000/admin/logout",
         { withCredentials: true }
       );
 

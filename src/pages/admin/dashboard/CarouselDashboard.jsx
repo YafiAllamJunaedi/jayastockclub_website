@@ -13,30 +13,34 @@ const carouselFields = [
 ];
 
 const CarouselDashboard = () => {
-  const [carousel, setCarousel] = useState([])
+  const [carousel, setCarousel] = useState([]);
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  const [isDeleteOpen, setDeleteOpen] = useState(false)
-  const [selectedCarouselId, setSelectedCarouselId] = useState(null)
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [selectedCarouselId, setSelectedCarouselId] = useState(null);
+
+  const fetchCarousel = async () => {
+    try {
+      const data = await getCarousel();
+      setCarousel(data);
+    } catch (err) {
+      setError("Gagal mengambil data prestasi");
+    }
+  };
 
   useEffect(() => {
-    const fetchCarousel = async () => {
-      try {
-        const data = await getCarousel();
-        setCarousel(data);
-      } catch (err) {
-        setError("Gagal mengambil data prestasi");
-      }
-    };
-
     fetchCarousel();
   }, []);
 
   const handleOpenForm = () => setIsFormVisible(true);
-  const handleCloseForm = () => setIsFormVisible(false);
+
+  const handleCloseForm = async () => {
+    setIsFormVisible(false);
+    await fetchCarousel();
+  };
 
   const handleSaveCarouselFormData = async () => {
     try {
@@ -48,6 +52,8 @@ const CarouselDashboard = () => {
       }
 
       await editCarousel(selected.id, formData);
+
+      await fetchCarousel();
     } catch (err) {
       console.error(err);
     }
@@ -59,23 +65,27 @@ const CarouselDashboard = () => {
         type: selected.type,
         createdAt: selected.createdAt,
       });
+
+      await fetchCarousel();
     } catch (error) {
       console.error(error);
       alert("Gagal update data");
     }
   };
 
-   const handleDeleteSuccess = async () => {
+  const handleDeleteSuccess = async () => {
     try {
       await deleteCarousel(selectedCarouselId);
-  
+
       setCarousel(prev =>
         prev.filter(p => p.id !== selectedCarouselId)
       );
-  
+
       setDeleteOpen(false);
       setSelectedCarouselId(null);
       setSelected(null);
+
+      await fetchCarousel();
     } catch (err) {
       console.error(err);
       alert("Gagal menghapus data");
@@ -84,17 +94,18 @@ const CarouselDashboard = () => {
 
   const openDelete = (id) => {
     setSelectedCarouselId(id);
-    setDeleteOpen(true)
-  }
+    setDeleteOpen(true);
+  };
 
   const closeDelete = () => {
     setDeleteOpen(false);
     setSelectedCarouselId(null);
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
-      <child carousel = {carousel} setCarousel = {setCarousel}/>
+      <child carousel={carousel} setCarousel={setCarousel} />
+
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
@@ -114,8 +125,14 @@ const CarouselDashboard = () => {
         </div>
 
         {isFormVisible && <CarouselAddModal onClose={handleCloseForm} />}
-        {isDeleteOpen &&  (<ModalDelete id={selectedCarouselId} onClose={closeDelete} onDelete={handleDeleteSuccess}/>)}
-        
+        {isDeleteOpen && (
+          <ModalDelete
+            id={selectedCarouselId}
+            onClose={closeDelete}
+            onDelete={handleDeleteSuccess}
+          />
+        )}
+
         <div className="w-full h-full overflow-hidden">
           <div className="flex w-full h-full py-4 gap-4">
             <div
@@ -128,7 +145,7 @@ const CarouselDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.type}
-                    image={`http://localhost:3008/uploads/${item.img}`}
+                    image={`http://localhost:5000/uploads/${item.img}`}
                     onClick={() =>
                       setSelected((prev) =>
                         prev?.id === item.id ? null : item
@@ -140,19 +157,19 @@ const CarouselDashboard = () => {
                       )
                     }
                     onEdit={() => console.log("edit", item.id)}
-                    onDelete={() => console.log("delete", item.id)}
+                    onDelete={() => openDelete(item.id)}
                   />
                 ))}
               </div>
             </div>
 
-             {selected && (
+            {selected && (
               <DetailPanel
                 title="Carousel"
                 fields={carouselFields}
                 data={selected}
                 Type={selected.type}
-                image={`http://localhost:3008/uploads/${selected.img}`}
+                image={`http://localhost:5000/uploads/${selected.img}`}
                 setCarousel={setCarousel}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

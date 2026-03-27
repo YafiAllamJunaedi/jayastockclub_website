@@ -57,7 +57,7 @@ const LatestBlogs = () => {
               <div className="w-full flex flex-col items-center pt-3">
                 <img
                   className="w-64"
-                  src={`http://localhost:3008/uploads/${selectedBlog.img}`}
+                  src={`http://localhost:5000/uploads/${selectedBlog.img}`}
                   alt={selectedBlog.judul}
                 />
                 <p className="p-3">

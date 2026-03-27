@@ -41,7 +41,7 @@ const Divisions = () => {
             <DivisionCard
               key={idx.id}
               label={idx.Divisi}
-              image={`http://localhost:3008/uploads/${idx.img}`}
+              image={`http://localhost:5000/uploads/${idx.img}`}
               text={idx.about}
               type="hijau"
             />

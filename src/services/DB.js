@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiPublic = axios.create({
-  baseURL: "http://localhost:3008/consume/get"
+  baseURL: "http://localhost:5000/consume/get"
 });
 
 export const getBlog = async () => {
@@ -26,5 +26,10 @@ export const getGallery = async () => {
 
 export const getCarousel = async () => {
   const res = await apiPublic.get("/carousel");
+  return res.data;
+};
+
+export const getEvent = async () => {
+  const res = await apiPublic.get("/event");
   return res.data;
 };

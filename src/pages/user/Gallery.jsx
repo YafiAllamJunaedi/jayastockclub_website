@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import Card from "../../components/Card.jsx";
-import { getPrestasi } from "../../services/DB.js";
+import GalleryCard from "../../components/GalleryCard.jsx";
+import { getGallery } from "../../services/DB.js";
 
 const Gallery = () => {
-  const [prestasi, setPrestasi] = useState([]);
+  const [gallery, setGallery] = useState([]);
   useEffect(() => {
-    const fetchPrestasi = async () => {
+    const fetchGallery = async () => {
       try {
-        const data = await getPrestasi();
-        setPrestasi(data);
+        const data = await getGallery();
+        setGallery(data);
       } catch (err) {
         setError("Gagal mengambil data pengurus");
       }
     };
-    fetchPrestasi();
+    fetchGallery();
   }, []);
   return (
     <div className="w-full min-h-[75vh] p-10">
@@ -23,13 +23,12 @@ const Gallery = () => {
       </p>
 
       <div className="pt-7 grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-6 gap-5">
-        {prestasi.map((idx) => (
-          <Card
+        {gallery.map((idx) => (
+          <GalleryCard
             key={idx.id}
-            date={idx.tanggal}
-            location={idx.lokasi}
+            date={idx.date}
             title={idx.judul}
-            image={`http://localhost:3008/uploads/${idx.img}`}
+            image={`http://localhost:5000/uploads/${idx.img}`}
           />
         ))}
       </div>

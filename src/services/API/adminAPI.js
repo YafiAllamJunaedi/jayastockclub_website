@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:3008";
+const API = "http://localhost:5000";
 
 export const createAdmin = async (adminData) => {
   try {

@@ -11,7 +11,6 @@ const blogFields = [
   { key: "judul", label: "judul", type: "text" },
   { key: "date", label: "date", type: "text" },
   { key: "paper", label: "paper", type: "textarea" },
-
 ];
 
 const BlogsDashboard = () => {
@@ -21,85 +20,81 @@ const BlogsDashboard = () => {
   const [active, setActive] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  const [isDeleteOpen, setDeleteOpen] = useState(false)
-  const [selectedPengurusId, setSelectedPengurusId] = useState(null)
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [selectedPengurusId, setSelectedPengurusId] = useState(null);
+
+  const fetchBlog = async () => {
+    try {
+      const data = await getBlog();
+      setBlog(data);
+    } catch (err) {
+      setError("Gagal mengambil data blog");
+    }
+  };
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const data = await getBlog();
-        setBlog(data);
-      } catch (err) {
-        setError("Gagal mengambil data blog");
-      }
-    };
-
     fetchBlog();
   }, []);
 
   const handleOpenForm = () => setIsFormVisible(true);
-  const handleCloseForm = () => setIsFormVisible(false);
+
+  const handleCloseForm = async () => {
+    setIsFormVisible(false);
+    await fetchBlog();
+  };
 
   const handleSaveblogFormData = async () => {
     try {
       const formData = new FormData();
       formData.append("judul", selected.judul);
       formData.append("date", selected.date);
-      formData.append("judul", selected.judul);
+      formData.append("paper", selected.paper);
 
       if (imageFile) {
         formData.append("img", imageFile);
       }
 
       await editBlog(selected.id, formData);
+
+      await fetchBlog();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleEditBlog = async () => {
+  const handleDeleteSuccess = async () => {
     try {
-      await editBlog(selected.id, {
-        judul: selected.judul,
-        description: selected.description,
-        createdAt: selected.createdAt,
-      });
-    } catch (error) {
-      console.error(error);
-      alert("Gagal update data");
-    }
-  };
+      await deleteBlog(selectedPengurusId);
 
-   const handleDeleteSuccess = async () => {
-    try {
-  
       setBlog(prev =>
         prev.filter(p => p.id !== selectedPengurusId)
       );
-  
+
       setDeleteOpen(false);
       setSelectedPengurusId(null);
       setSelected(null);
+
+      await fetchBlog();
     } catch (err) {
       console.error(err);
       alert("Gagal menghapus data");
     }
   };
+
   console.log(blog);
 
   const openDelete = (id) => {
     setSelectedPengurusId(id);
-    setDeleteOpen(true)
-  }
+    setDeleteOpen(true);
+  };
 
   const closeDelete = () => {
     setDeleteOpen(false);
     setSelectedPengurusId(null);
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
-      <child blog = {blog} setBlog = {setBlog}/>
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
@@ -119,8 +114,14 @@ const BlogsDashboard = () => {
         </div>
 
         {isFormVisible && <BlogAddModal onClose={handleCloseForm} />}
-        {isDeleteOpen &&  (<ModalDelete id={selectedPengurusId} onClose={closeDelete} onDelete={handleDeleteSuccess}/>)}
-        
+        {isDeleteOpen && (
+          <ModalDelete
+            id={selectedPengurusId}
+            onClose={closeDelete}
+            onDelete={handleDeleteSuccess}
+          />
+        )}
+
         <div className="w-full h-full overflow-hidden">
           <div className="flex w-full h-full py-4 gap-4">
             <div
@@ -133,7 +134,7 @@ const BlogsDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.judul}
-                    image={`http://localhost:3008/uploads/${item.img}`}
+                    image={`http://localhost:5000/uploads/${item.img}`}
                     description={item.date}
                     onClick={() =>
                       setSelected((prev) =>
@@ -146,18 +147,18 @@ const BlogsDashboard = () => {
                       )
                     }
                     onEdit={() => console.log("edit", item.id)}
-                    onDelete={() => console.log("delete", item.id)}
+                    onDelete={() => openDelete(item.id)}
                   />
                 ))}
               </div>
             </div>
 
-             {selected && (
+            {selected && (
               <DetailPanel
                 title="Blog"
                 fields={blogFields}
                 data={selected}
-                image={`http://localhost:3008/uploads/${selected.img}`}
+                image={`http://localhost:5000/uploads/${selected.img}`}
                 setBlog={setBlog}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

@@ -2,113 +2,112 @@ import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import DashboardSidebar from "../../../components/DashboardSidebar.jsx";
 import DetailPanel from "../../../components/DetailPanel.jsx";
-import DivisionsAddModal from "../../../components/DashboardModal/ModalAddData/DivisionsModal.jsx";
 import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
-import { getPengurus, editPengurus, deletePengurus } from "../../../services/API/pengurusAPI.js";
+import EventAddModal from "../../../components/DashboardModal/ModalAddData/EventModal.jsx";
+import { getEvent, editEvent, deleteEvent } from "../../../services/API/eventApi.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
 
-const pengurusFields = [
-  { key: "Divisi", label: "Divisi", type: "text" },
-  { key: "about", label: "Deskripsi", type: "textarea" },
+const eventFields = [
+  { key: "url", label: "url", type: "text" },
   { key: "createdAt", label: "Created At", type: "text", disabled: true },
 ];
 
-const DivisionsDashboard = ({ id }) => {
-  const [pengurus, setPengurus] = useState([]);
+const EventDashboard = () => {
+  const [gallery, setEvent] = useState([]);
   const [error, setError] = useState(null);
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [isDeleteOpen, setDeleteOpen] = useState(false);
-  const [selectedPengurusId, setSelectedPengurusId] = useState(null);
+  const [selectedGalleryId, setSelectedEventId] = useState(null);
 
-  const fetchPengurus = async () => {
+  const fetchEvent = async () => {
     try {
-      const data = await getPengurus();
-      setPengurus(data);
+      const data = await getEvent();
+      setEvent(data);
     } catch (err) {
-      setError("Gagal mengambil data pengurus");
+      setError("Gagal mengambil data prestasi");
     }
   };
 
   useEffect(() => {
-    fetchPengurus();
+    fetchEvent();
   }, []);
 
   const handleOpenForm = () => setIsFormVisible(true);
 
   const handleCloseForm = async () => {
     setIsFormVisible(false);
-    await fetchPengurus();
+    await fetchEvent();
   };
 
-  const handleSavePengurusFormData = async () => {
+  const handleSaveEventFormData = async () => {
     try {
       const formData = new FormData();
-      formData.append("Divisi", selected.Divisi);
-      formData.append("about", selected.about);
+      formData.append("url", selected.url);
 
       if (imageFile) {
         formData.append("img", imageFile);
       }
 
-      await editPengurus(selected.id, formData);
+      await editEvent(selected.id, formData);
 
-      await fetchPengurus();
+      await fetchEvent();
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleEditPengurus = async () => {
+  const handleEditEvent = async () => {
     try {
-      await editPengurus(selected.id, {
-        division: selected.division,
-        description: selected.description,
+      await editEvent(selected.id, {
+        type: selected.type,
         createdAt: selected.createdAt,
       });
 
-      await fetchPengurus();
+      await fetchEvent();
     } catch (error) {
       console.error(error);
-      alert("Gagal update data");
+      alert("Gagal upurl data");
     }
-  };
-
-  const openDelete = (id) => {
-    setSelectedPengurusId(id);
-    setDeleteOpen(true);
-  };
-
-  const closeDelete = () => {
-    setDeleteOpen(false);
-    setSelectedPengurusId(null);
   };
 
   const handleDeleteSuccess = async () => {
     try {
-      await deletePengurus(selectedPengurusId);
+      await deleteEvent(selectedGalleryId);
 
-      setPengurus(prev =>
-        prev.filter(p => p.id !== selectedPengurusId)
+      setEvent(prev =>
+        prev.filter(p => p.id !== selectedGalleryId)
       );
 
       setDeleteOpen(false);
-      setSelectedPengurusId(null);
+      setSelectedEventId(null);
       setSelected(null);
 
-      await fetchPengurus();
+      await fetchEvent();
     } catch (err) {
       console.error(err);
       alert("Gagal menghapus data");
     }
   };
 
-  console.log(pengurus);
+  console.log(gallery);
+
+  const openDelete = (id) => {
+    setSelectedEventId(id);
+    setDeleteOpen(true);
+  };
+
+  const closeDelete = () => {
+    setDeleteOpen(false);
+    setSelectedEventId(null);
+  };
 
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
+      <child gallery={gallery} setEvent={setEvent} />
+
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
@@ -116,21 +115,21 @@ const DivisionsDashboard = ({ id }) => {
       <div className="w-7/12 md:w-9/12 lg:w-10/12 h-full flex flex-col bg-slate-100">
         <div className="flex justify-center items-center w-full lg:h-[60px] bg-slate-200 bg-graent-to-l from-[#003835]/40 to-[#007471]/40">
           <div className="w-full px-6 flex justify-between items-center">
-            <p className="text-xl font-semibold">Division</p>
+            <p className="text-xl font-semibold">Event</p>
 
             <div
               onClick={handleOpenForm}
-              className="w-1/12 text-[12px] gap-1 rounded-sm px-3 py-1 cursor-pointer transition bg-linear-to-l from-[#003835] to-[#007471] text-white font-semibold flex justify-center items-center"
+              className="w-1/12 text-[12px] gap-1 rounded-sm px-3 py-1 cursor-pointer transition bg-gradient-to-l from-[#003835] to-[#007471] text-white font-semibold flex justify-center items-center"
             >
               Add <FaPlus />
             </div>
           </div>
         </div>
 
-        {isFormVisible && <DivisionsAddModal onClose={handleCloseForm} />}
+        {isFormVisible && <EventAddModal onClose={handleCloseForm} />}
         {isDeleteOpen && (
           <ModalDelete
-            id={selectedPengurusId}
+            id={selectedGalleryId}
             onClose={closeDelete}
             onDelete={handleDeleteSuccess}
           />
@@ -144,12 +143,11 @@ const DivisionsDashboard = ({ id }) => {
               } h-full overflow-y-auto transition-all duration-300`}
             >
               <div className="grid grid-cols-1 gap-4 p-3">
-                {pengurus.map((item) => (
+                {gallery.map((item) => (
                   <DashboardCard
                     key={item.id}
-                    division={item.Divisi}
                     image={`http://localhost:5000/uploads/${item.img}`}
-                    description={item.about}
+                    description={item.url}
                     onClick={() =>
                       setSelected((prev) =>
                         prev?.id === item.id ? null : item
@@ -161,7 +159,7 @@ const DivisionsDashboard = ({ id }) => {
                       )
                     }
                     onEdit={() => console.log("edit", item.id)}
-                    onDelete={() => openDelete(item.id)}
+                    onDelete={() => openDelete(item.id)} 
                   />
                 ))}
               </div>
@@ -169,22 +167,25 @@ const DivisionsDashboard = ({ id }) => {
 
             {selected && (
               <DetailPanel
-                title="Divisions"
-                fields={pengurusFields}
+                title="Up Coming Event"
+                fields={eventFields}
                 data={selected}
+                Type={selected.type}
                 image={`http://localhost:5000/uploads/${selected.img}`}
-                setPengurus={setPengurus}
+                setEvent={setEvent}
+                onDeleteSuccess={handleDeleteSuccess}
                 active={active}
                 onToggle={setActive}
+                createdAt={selected.createdAt}
                 onChange={(field, value) =>
                   setSelected((prev) => ({
                     ...prev,
                     [field]: value,
                   }))
                 }
-                onDelete={() => openDelete(selected.id)}
-                onEdit={handleSavePengurusFormData}
+                onEdit={handleSaveEventFormData}
                 onChooseImage={setImageFile}
+                onDelete={() => openDelete(selected.id)}
                 onClose={() => setSelected(null)}
               />
             )}
@@ -195,4 +196,4 @@ const DivisionsDashboard = ({ id }) => {
   );
 };
 
-export default DivisionsDashboard;
+export default EventDashboard;

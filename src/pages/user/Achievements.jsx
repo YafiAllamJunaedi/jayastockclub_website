@@ -35,7 +35,7 @@ const Achievements = () => {
             location={idx.lokasi}
             title={idx.judul}
             detail={idx.detail}
-            image={`http://localhost:3008/uploads/${idx.img}`}
+            image={`http://localhost:5000/uploads/${idx.img}`}
           />
         ))}
       </div>

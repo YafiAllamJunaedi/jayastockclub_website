@@ -16,11 +16,11 @@ const Login = () => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        await axios.get("http://localhost:3008/auth/me", {
+        await axios.get("http://localhost:5000/auth/me", {
           withCredentials: true
         });
 
-        navigate("/main");
+        navigate("/admin/carousel");
 
       } catch (error) {
         console.log("Belum login");

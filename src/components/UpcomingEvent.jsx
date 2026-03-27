@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard.jsx";
+import { getEvent } from "../services/DB.js";
 
-const events = Array.from({ length: 30 });
 const getConfig = () => {
   const width = window.innerWidth;
 
@@ -15,6 +15,20 @@ const getConfig = () => {
 };
 
 const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
+
+ const [event, setEvent] = useState([]);
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const data = await getEvent();
+        setEvent(data);
+      } catch (err) {
+        setError("Gagal mengambil data pengurus");
+      }
+    };
+    fetchEvent();
+  }, []);
+
   const [screenType, setScreenType] = useState("desktop");
   const { initial } = getConfig();
 
@@ -52,13 +66,14 @@ const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
           data-aos-delay={aosDelay}
           data-aos-duration={aosDuration}
         >
-          {events.slice(0, visibleCount).map((_, i) => (
+        {Array.isArray(event) &&
+          event.slice(0, visibleCount).map((item, i) => (
             <EventCard
               key={i}
-              img="/Assets/event_dummy.jpg"
-              link="https://www.instagram.com/p/DT-LYclkb0G/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+              img={`http://localhost:5000/uploads/${item.img}`}
+              link={item.url}
             />
-          ))}
+        ))}
         </div>
 
         <div className="flex justify-center gap-6 pt-5 text-white font-semibold">

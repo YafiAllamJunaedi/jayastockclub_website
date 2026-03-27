@@ -48,10 +48,11 @@ const Carousel = () => {
     <div className="relative w-4/5 md:w-3/6 2xl:w-4/6 h-60 mt-8 rounded-lg overflow-hidden">
       <div
         className="w-full h-full bg-cover bg-center transition-all duration-700"
-style={{
-    backgroundImage: `url(http://localhost:3008/uploads/${images[current]})`
-  }}      ></div>
-
+        style={{
+          backgroundImage: `url(http://localhost:5000/uploads/${images[current]})`
+          }}
+        >
+      </div>
       <button
         onClick={prevSlide}
         className="absolute left-3 top-1/2 -translate-y-1/2

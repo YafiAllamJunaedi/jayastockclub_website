@@ -22,24 +22,28 @@ const AchievementDashboard = () => {
   const [active, setActive] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [imageFile, setImageFile] = useState(null);
-  const [isDeleteOpen, setDeleteOpen] = useState(false)
-  const [selectedPengurusId, setSelectedPengurusId] = useState(null)
+  const [isDeleteOpen, setDeleteOpen] = useState(false);
+  const [selectedPengurusId, setSelectedPengurusId] = useState(null);
+
+  const fetchPrestasi = async () => {
+    try {
+      const data = await getPrestasi();
+      setPrestasi(data);
+    } catch (err) {
+      setError("Gagal mengambil data prestasi");
+    }
+  };
 
   useEffect(() => {
-    const fetchPrestasi = async () => {
-      try {
-        const data = await getPrestasi();
-        setPrestasi(data);
-      } catch (err) {
-        setError("Gagal mengambil data prestasi");
-      }
-    };
-
     fetchPrestasi();
   }, []);
 
   const handleOpenForm = () => setIsFormVisible(true);
-  const handleCloseForm = () => setIsFormVisible(false);
+
+  const handleCloseForm = async () => {
+    setIsFormVisible(false);
+    await fetchPrestasi();
+  };
 
   const handleSaveprestasiFormData = async () => {
     try {
@@ -54,6 +58,8 @@ const AchievementDashboard = () => {
       }
 
       await editPrestasi(selected.id, formData);
+
+      await fetchPrestasi();
     } catch (err) {
       console.error(err);
     }
@@ -66,43 +72,49 @@ const AchievementDashboard = () => {
         description: selected.description,
         createdAt: selected.createdAt,
       });
+
+      await fetchPrestasi();
     } catch (error) {
       console.error(error);
       alert("Gagal update data");
     }
   };
 
-   const handleDeleteSuccess = async () => {
+  const handleDeleteSuccess = async () => {
     try {
       await deletePrestasi(selectedPengurusId);
-  
+
       setPrestasi(prev =>
         prev.filter(p => p.id !== selectedPengurusId)
       );
-  
+
       setDeleteOpen(false);
       setSelectedPengurusId(null);
       setSelected(null);
+
+      await fetchPrestasi();
     } catch (err) {
       console.error(err);
       alert("Gagal menghapus data");
     }
   };
+
   console.log(prestasi);
 
   const openDelete = (id) => {
     setSelectedPengurusId(id);
-    setDeleteOpen(true)
-  }
+    setDeleteOpen(true);
+  };
 
   const closeDelete = () => {
     setDeleteOpen(false);
     setSelectedPengurusId(null);
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen text-[#007571]">
-      <child prestasi = {prestasi} setPrestasi = {setPrestasi}/>
+      <child prestasi={prestasi} setPrestasi={setPrestasi} />
+
       <div className="w-5/12 md:w-3/12 lg:w-2/12 h-full">
         <DashboardSidebar />
       </div>
@@ -122,8 +134,14 @@ const AchievementDashboard = () => {
         </div>
 
         {isFormVisible && <AchievementAddModal onClose={handleCloseForm} />}
-        {isDeleteOpen &&  (<ModalDelete id={selectedPengurusId} onClose={closeDelete} onDelete={handleDeleteSuccess}/>)}
-        
+        {isDeleteOpen && (
+          <ModalDelete
+            id={selectedPengurusId}
+            onClose={closeDelete}
+            onDelete={handleDeleteSuccess}
+          />
+        )}
+
         <div className="w-full h-full overflow-hidden">
           <div className="flex w-full h-full py-4 gap-4">
             <div
@@ -136,7 +154,7 @@ const AchievementDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.judul}
-                    image={`http://localhost:3008/uploads/${item.img}`}
+                    image={`http://localhost:5000/uploads/${item.img}`}
                     description={item.tanggal}
                     onClick={() =>
                       setSelected((prev) =>
@@ -149,18 +167,18 @@ const AchievementDashboard = () => {
                       )
                     }
                     onEdit={() => console.log("edit", item.id)}
-                    onDelete={() => console.log("delete", item.id)}
+                    onDelete={() => openDelete(item.id)}
                   />
                 ))}
               </div>
             </div>
 
-             {selected && (
+            {selected && (
               <DetailPanel
                 title="prestasi"
                 fields={prestasiFields}
                 data={selected}
-                image={`http://localhost:3008/uploads/${selected.img}`}
+                image={`http://localhost:5000/uploads/${selected.img}`}
                 setprestasi={setPrestasi}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

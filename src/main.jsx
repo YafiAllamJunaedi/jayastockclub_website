@@ -20,6 +20,7 @@ import AchievementDashboard from './pages/admin/dashboard/AchievementDashboard.j
 import DivisionsDashboard from './pages/admin/dashboard/DivisionsDashboard.jsx';
 import CarouselDashboard from './pages/admin/dashboard/CarouselDashboard.jsx';
 import GalleryDashboard from './pages/admin/dashboard/GalleryDashboard.jsx';
+import EventDashboard from './pages/admin/dashboard/EventDashboard.jsx';
 
 
 const router = createBrowserRouter([
@@ -96,6 +97,13 @@ const router = createBrowserRouter([
         element: 
         <ProtectedRoute>
           <CarouselDashboard />
+        </ProtectedRoute>
+      },
+      {
+        path: "event",
+        element: 
+        <ProtectedRoute>
+          <EventDashboard/>
         </ProtectedRoute>
       },
     ],

@@ -561,7 +561,7 @@ const App = () => {
                   location={idx.lokasi}
                   title={idx.judul}
                   detail={idx.detail}
-                  image={`http://localhost:3008/uploads/${idx.img}`}
+                  image={`http://localhost:5000/uploads/${idx.img}`}
                 />
               </div>
             );
@@ -598,7 +598,7 @@ const App = () => {
             <div
               className="relative hidden md:block md:w-3/6 h-[53vh] 2xl:h-[50.5vh] bg-cover bg-no-repeat overflow-hidden cursor-pointer hover:scale-105 transition duration-300"
               style={{
-                backgroundImage: `url(http://localhost:3008/uploads/${blog[0]?.img})`,
+                backgroundImage: `url(http://localhost:5000/uploads/${blog[0]?.img})`,
               }}
               onClick={() =>
                 navigate("/blogs", { state: { selectedId: blog[0]?.id } })
@@ -626,7 +626,7 @@ const App = () => {
                   <Blogs
                     date={idx.date}
                     judul={idx.judul}
-                    image={`http://localhost:3008/uploads/${idx.img}`}
+                    image={`http://localhost:5000/uploads/${idx.img}`}
                     aos="zoom-in"
                     aosDelay="300"
                   />
