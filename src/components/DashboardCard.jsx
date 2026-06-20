@@ -12,7 +12,7 @@ const DashboardCard = ({
   return (
     <div
       onClick={onClick}
-      className="relative bg-gradient-to-t from-[#003835]/20 to-[#007471]/10 px-2 py-4 w-full h-[120px] rounded-md flex gap-4 cursor-pointer"
+      className="relative bg-linear-to-t from-[#003835]/20 to-[#007471]/10 px-2 py-4 w-full h-[120px] rounded-md flex gap-4 cursor-pointer"
     >
       <img className="w-[120px] h-full object-cover rounded" src={image} />
 

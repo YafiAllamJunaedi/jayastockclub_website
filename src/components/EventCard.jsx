@@ -4,7 +4,7 @@ const EventCard = ({ img, link }) => {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="block rounded-md h-52 overflow-hidden"
+      className="block rounded-md h-52 overflow-hidden border-2 border-white"
     >
       <img
         className="w-full h-full object-cover"

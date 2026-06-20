@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000";
+const API = import.meta.env.LINK_BE
 
 export const createAdmin = async (adminData) => {
   try {

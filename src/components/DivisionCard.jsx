@@ -1,4 +1,3 @@
-
 const DivisionCard = ({ label, image, text }) => {
   return (
     <div
@@ -31,7 +30,7 @@ const DivisionCard = ({ label, image, text }) => {
       </div>
 
       <div className="w-full h-[195px] overflow-hidden rounded-md mb-3 shrink-0">
-        <img src={image} alt={label} className="w-full h-full object-cover" />
+        <img src={image} alt={label} className="w-full h-full object-cover" loading="lazy"/>
       </div>
 
       <div className="w-full flex-1 flex items-center justify-center text-center px-3">

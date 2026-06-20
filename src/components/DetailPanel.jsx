@@ -114,14 +114,14 @@ const DetailPanel = ({
           <>
             <button
               onClick={handleEdit}
-              className="w-full flex justify-center items-center gap-1 font-semibold bg-[#003835] rounded-md py-2 text-[#c1e1de]"
+              className="w-full flex justify-center items-center gap-1 font-semibold bg-[#003835] rounded-md py-2 text-[#c1e1de] cursor-pointer"
             >
               Edit <FaEdit />
             </button>
 
             <button
               onClick={(e) => {e.stopPropagation(); onDelete();}}
-              className="w-full flex justify-center items-center gap-1 font-semibold bg-red-500 rounded-md py-2 text-[#c1e1de]"
+              className="w-full flex justify-center items-center gap-1 font-semibold bg-red-500 rounded-md py-2 text-[#c1e1de] cursor-pointer"
             >
               Delete <IoTrash />
             </button>
@@ -130,14 +130,14 @@ const DetailPanel = ({
           <>
             <button
               onClick={handleSave}
-              className="w-full flex justify-center items-center gap-1 font-semibold bg-green-600 rounded-md py-2 text-white"
+              className="w-full flex justify-center items-center gap-1 font-semibold bg-green-600 rounded-md py-2 text-white cursor-pointer"
             >
               Save
             </button>
 
             <button
               onClick={handleCancel}
-              className="w-full flex justify-center items-center gap-1 font-semibold bg-red-500 rounded-md py-2 text-[#c1e1de]"
+              className="w-full flex justify-center items-center gap-1 font-semibold bg-red-500 rounded-md py-2 text-[#c1e1de] cursor-pointer"
             >
               Cancel
             </button>

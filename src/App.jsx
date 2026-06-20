@@ -76,11 +76,18 @@ const App = () => {
         md: //// bg black-40
       "
       >
-        <img
-          className="w-16 md:w-24 lg:w-28 shrink-0"
-          src="/Assets/upj.png"
-          alt="UPJ Logo"
-        />
+        <div className="w-1/5 flex items-center gap-x-2">
+          <img
+            className="w-16 md:w-24 lg:w-28 shrink-0 p-2"
+            src="/Assets/upj.png"
+            alt="UPJ Logo"
+          />
+          <img
+            className="w-16 md:w-24 lg:w-20 shrink-0 p-2"
+            src="/Assets/jsc_logo.png"
+            alt="JSC Logo"
+          />
+        </div>
 
         {/* DESKTOP MENU */}
         <ul className="hidden md:flex gap-x-4 lg:gap-x-7 text-white text-sm lg:text-base shrink-0">
@@ -426,31 +433,26 @@ const App = () => {
             JayaStockClub
           </p>
           <div className="pt-7 hidden md:block">
-            <img
-              src="/Assets/main.jpg"
-              className="w-44 h-32 rounded-lg"
+            <div
+              className="w-44 h-32 rounded-lg bg-cover bg-[url('/Assets/activities_1.jpg')]"
               alt=""
-            />
-            <img
-              src="/Assets/dummy3.jpg"
-              className="w-44 h-32 relative left-32 bottom-4 rounded-lg"
+            ></div>
+            <div
+              className="w-44 h-32 relative left-32 bottom-4 rounded-lg bg-cover bg-[url('/Assets/activities_2.jpg')]"
               alt=""
-            />
-            <img
-              src="/Assets/dummy4.jpg"
-              className="w-44 h-32 relative rounded-lg bottom-10"
+            ></div>
+            <div
+              className="w-44 h-32 relative rounded-lg bottom-10 bg-cover bg-[url('/Assets/dummy3.jpg')]"
               alt=""
-            />
-            <img
-              src="/Assets/dummy3.jpg"
-              className="hidden 2xl:block w-44 h-32 relative left-32 bottom-15 rounded-lg"
+            ></div>
+            <div
+              className="hidden 2xl:block w-44 h-32 relative left-32 bottom-15 rounded-lg bg-cover bg-[url('/Assets/main.jpg')]"
               alt=""
-            />
-            <img
-              src="/Assets/dummy4.jpg"
-              className="hidden 2xl:block w-44 h-32 relative rounded-lg bottom-19"
+            ></div>
+            <div
+              className="hidden 2xl:block w-44 h-32 relative rounded-lg bottom-19 bg-cover bg-[url('/Assets/main.jpg')]"
               alt=""
-            />
+            ></div>
           </div>
         </div>
         <div className="md:w-3/5 md:p-10">
@@ -663,9 +665,11 @@ const App = () => {
           />
         </div>
       </div>
-
       <Footer />
+      
+      <div></div>
     </div>
+
   );
 };
 

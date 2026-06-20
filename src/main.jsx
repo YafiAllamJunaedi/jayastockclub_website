@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from './ProtectedRoute.jsx';
-
+// import "dotenv/config"
 import Divisions from './pages/user/Divisions.jsx';
 import Gallery from './pages/user/Gallery.jsx';
 import Achievements from './pages/user/Achievements.jsx';

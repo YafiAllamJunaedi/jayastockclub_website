@@ -2,9 +2,11 @@ import React from 'react'
 import axios from 'axios';
 // import logo from './asset/logo.png'
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IoCaretForwardOutline, IoPeople, IoPerson, IoCard, IoTrophy } from "react-icons/io5";
+import { IoPerson, IoTrophy, IoNewspaperSharp } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
-import { IoMdPaper } from 'react-icons/io';
+import { FaCamera, FaCalendarAlt } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { MdOutlineLoop } from "react-icons/md";
 
 const MenuItem = ({ path, icon, label, isActive, onClick }) => (
   <div className={`${isActive ? 'rounded-sm border-e-[5px] border-[#003835] ':''}`}>
@@ -21,12 +23,12 @@ const DashboardSidebar = () => {
   const location = useLocation();
 
   const sideMenu = [
-    { path: '/admin/blogs', icon: <IoMdPaper/>, label: 'Blog' },
-    { path: '/admin/gallery', icon: <IoCard />, label: 'Gallery' },
+    { path: '/admin/blogs', icon: <IoNewspaperSharp/>, label: 'Blog' },
+    { path: '/admin/gallery', icon: <FaCamera />, label: 'Gallery' },
     { path: '/admin/achievement', icon: <IoTrophy />, label: 'Achievement' },
-    { path: '/admin/divisions', icon: <IoPeople />, label: 'Division' },
-    { path: '/admin/carousel', icon: <IoCaretForwardOutline />, label: 'Carousel' },
-    { path: '/admin/event', icon: <IoCaretForwardOutline />, label: 'Event' }
+    { path: '/admin/divisions', icon: <FaPeopleGroup />, label: 'Division' },
+    { path: '/admin/carousel', icon: <MdOutlineLoop />, label: 'Carousel' },
+    { path: '/admin/event', icon: <FaCalendarAlt />, label: 'Event' }
   ];
 
   const handleLogout = async () => {
@@ -54,7 +56,7 @@ const DashboardSidebar = () => {
           <div className='side bag atas w-full h-4/6 flex flex-col items-center'>
 
             <div className='logo flex justify-center w-full mb-5'>
-                <img className='md:w-[55%] lg:w-[45%]' src="/public/Assets/jsc_logo.png" />
+                <img className='md:w-[55%] lg:w-[40%]' src="/public/Assets/jsc_logo_hitam.png" />
             </div>
 
             <div className='w-full flex flex-col text-sm gap-3'>
@@ -82,15 +84,15 @@ const DashboardSidebar = () => {
                   <IoPerson size={20}/>
                 </div>
 
-                <p className='text-[12px] pt-3 text-xl font-semibold'>Admin JSC Asli</p>
+                <p className='pt-3 text-lg font-semibold'>Admin</p>
 
               </div>
 
               <div 
-                className='h-1/3 cursor-pointer flex gap-1 justify-center items-center font-semibold text-[12px] hover:text-red-500'
+                className='cursor-pointer flex items-center gap-2 font-semibold text-md hover:text-red-500'
                 onClick={handleLogout}
               >
-                <CgLogOut size={16}/> Log Out
+                <CgLogOut size={20} className='mt-1'/> Logout
               </div>
 
           </div>
