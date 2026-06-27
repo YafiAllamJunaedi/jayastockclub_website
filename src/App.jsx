@@ -60,6 +60,9 @@ const App = () => {
     };
     fetchBlog();
   }, []);
+
+  console.log(import.meta.env);
+  console.log(import.meta.env.VITE_LINK_BE);
   return (
     // note1
     <div className="relative w-full overflow-x-hidden">
@@ -666,10 +669,9 @@ const App = () => {
         </div>
       </div>
       <Footer />
-      
+
       <div></div>
     </div>
-
   );
 };
 

@@ -22,14 +22,18 @@ const CarouselDashboard = () => {
   const [isDeleteOpen, setDeleteOpen] = useState(false);
   const [selectedCarouselId, setSelectedCarouselId] = useState(null);
 
-  const fetchCarousel = async () => {
-    try {
-      const data = await getCarousel();
-      setCarousel(data);
-    } catch (err) {
-      setError("Gagal mengambil data prestasi");
-    }
-  };
+ const fetchCarousel = async () => {
+  try {
+    const data = await getCarousel();
+
+    console.log("Carousel API:", data);
+
+    setCarousel(data);
+  } catch (err) {
+    console.log(err);
+    setError("Gagal mengambil data prestasi");
+  }
+};
 
   useEffect(() => {
     fetchCarousel();
@@ -141,7 +145,8 @@ const CarouselDashboard = () => {
               } h-full overflow-y-auto transition-all duration-300`}
             >
               <div className="grid grid-cols-1 gap-4 p-3">
-                {carousel.map((item) => (
+                {Array.isArray(carousel) &&
+  carousel.map((item) => (
                   <DashboardCard
                     key={item.id}
                     division={item.type}

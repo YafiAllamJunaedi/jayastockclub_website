@@ -1,7 +1,7 @@
 import axios from "axios";
-
+const API = import.meta.env.VITE_LINK_BE
 const apiPublic = axios.create({
-  baseURL: "http://localhost:5000/consume/get"
+  baseURL: `${API}/consume/get`
 });
 
 export const getBlog = async () => {

@@ -5,11 +5,11 @@ import axios from "axios";
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
-
+const API = import.meta.env.VITE_LINK_BE
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get("http://localhost:5000/auth/me", {
+        await axios.get(`${API}/auth/me`, {
           withCredentials: true
         });
 
