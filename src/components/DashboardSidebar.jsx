@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-// import logo from './asset/logo.png'
+import logo from './asset/logo.png'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoPerson, IoTrophy, IoNewspaperSharp } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
