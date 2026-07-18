@@ -6,6 +6,7 @@ import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/Moda
 import EventAddModal from "../../../components/DashboardModal/ModalAddData/EventModal.jsx";
 import { getEvent, editEvent, deleteEvent } from "../../../services/API/eventApi.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const eventFields = [
   { key: "url", label: "url", type: "text" },
@@ -146,7 +147,7 @@ const EventDashboard = () => {
                 {gallery.map((item) => (
                   <DashboardCard
                     key={item.id}
-                    image={`http://localhost:5000/uploads/${item.img}`}
+                    image={`${API}/uploads/${item.img}`}
                     description={item.url}
                     onClick={() =>
                       setSelected((prev) =>
@@ -171,7 +172,7 @@ const EventDashboard = () => {
                 fields={eventFields}
                 data={selected}
                 Type={selected.type}
-                image={`http://localhost:5000/uploads/${selected.img}`}
+                image={`${API}/uploads/${selected.img}`}
                 setEvent={setEvent}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

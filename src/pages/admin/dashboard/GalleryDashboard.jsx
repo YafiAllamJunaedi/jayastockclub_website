@@ -6,6 +6,7 @@ import GalleryAddModal from "../../../components/DashboardModal/ModalAddData/Gal
 import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
 import { getGallery, editGallery, deleteGallery } from "../../../services/API/galleryAPI.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const galleryFields = [
   { key: "judul", label: "judul", type: "text" },
@@ -149,7 +150,7 @@ const GalleryDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.judul}
-                    image={`http://localhost:5000/uploads/${item.img}`}
+                    image={`${API}/uploads/${item.img}`}
                     description={item.date}
                     onClick={() =>
                       setSelected((prev) =>
@@ -174,7 +175,7 @@ const GalleryDashboard = () => {
                 fields={galleryFields}
                 data={selected}
                 Type={selected.type}
-                image={`http://localhost:5000/uploads/${selected.img}`}
+                image={`${API}/uploads/${selected.img}`}
                 setGallery={setGallery}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

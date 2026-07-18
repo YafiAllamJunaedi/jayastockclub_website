@@ -6,6 +6,7 @@ import AchievementAddModal from "../../../components/DashboardModal/ModalAddData
 import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
 import { getPrestasi, editPrestasi, deletePrestasi } from "../../../services/API/prestasiAPI.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const prestasiFields = [
   { key: "judul", label: "judul", type: "text" },
@@ -154,7 +155,7 @@ const AchievementDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.judul}
-                    image={`http://localhost:5000/uploads/${item.img}`}
+                    image={`${API}/uploads/${item.img}`}
                     description={item.tanggal}
                     onClick={() =>
                       setSelected((prev) =>
@@ -178,7 +179,7 @@ const AchievementDashboard = () => {
                 title="prestasi"
                 fields={prestasiFields}
                 data={selected}
-                image={`http://localhost:5000/uploads/${selected.img}`}
+                image={`${API}/uploads/${selected.img}`}
                 setprestasi={setPrestasi}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}

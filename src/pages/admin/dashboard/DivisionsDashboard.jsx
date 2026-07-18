@@ -6,6 +6,7 @@ import DivisionsAddModal from "../../../components/DashboardModal/ModalAddData/D
 import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
 import { getPengurus, editPengurus, deletePengurus } from "../../../services/API/pengurusAPI.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const pengurusFields = [
   { key: "Divisi", label: "Divisi", type: "text" },
@@ -148,7 +149,7 @@ const DivisionsDashboard = ({ id }) => {
                   <DashboardCard
                     key={item.id}
                     division={item.Divisi}
-                    image={`http://localhost:5000/uploads/${item.img}`}
+                    image={`${API}/uploads/${item.img}`}
                     description={item.about}
                     onClick={() =>
                       setSelected((prev) =>
@@ -172,7 +173,7 @@ const DivisionsDashboard = ({ id }) => {
                 title="Divisions"
                 fields={pengurusFields}
                 data={selected}
-                image={`http://localhost:5000/uploads/${selected.img}`}
+                image={`${API}/uploads/${selected.img}`}
                 setPengurus={setPengurus}
                 active={active}
                 onToggle={setActive}

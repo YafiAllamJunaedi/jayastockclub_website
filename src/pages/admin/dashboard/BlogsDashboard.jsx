@@ -6,8 +6,8 @@
   import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
   import { getBlog, editBlog, deleteBlog } from "../../../services/API/blogAPI.js";
   import DashboardCard from "../../../components/DashboardCard.jsx";
+  const API = import.meta.env.VITE_LINK_BE
 
-const API = import.meta.env.VITE_LINK_BE
   const blogFields = [
     { key: "judul", label: "judul", type: "text" },
     { key: "date", label: "date", type: "text" },

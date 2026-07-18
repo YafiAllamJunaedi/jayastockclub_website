@@ -6,6 +6,7 @@ import CarouselAddModal from "../../../components/DashboardModal/ModalAddData/Ca
 import ModalDelete from "../../../components/DashboardModal/ModalDeleteData/ModalDelete.jsx";
 import { getCarousel, editCarousel, deleteCarousel } from "../../../services/API/carouselAPI.js";
 import DashboardCard from "../../../components/DashboardCard.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const carouselFields = [
   { key: "type", label: "type", type: "text" },
@@ -150,7 +151,7 @@ const CarouselDashboard = () => {
                   <DashboardCard
                     key={item.id}
                     division={item.type}
-                    image={`http://localhost:5000/uploads/${item.img}`}
+                    image={`${API}/uploads/${item.img}`}
                     onClick={() =>
                       setSelected((prev) =>
                         prev?.id === item.id ? null : item
@@ -174,7 +175,7 @@ const CarouselDashboard = () => {
                 fields={carouselFields}
                 data={selected}
                 Type={selected.type}
-                image={`http://localhost:5000/uploads/${selected.img}`}
+                image={`${API}/uploads/${selected.img}`}
                 setCarousel={setCarousel}
                 onDeleteSuccess={handleDeleteSuccess}
                 active={active}
