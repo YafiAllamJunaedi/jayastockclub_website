@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { getCarousel } from "../services/DB";
+const API = import.meta.env.VITE_LINK_BE
 
 const Carousel = () => {
   const [images, setImages] = useState([]);
@@ -49,7 +50,7 @@ const Carousel = () => {
       <div
         className="w-full h-full bg-cover bg-center transition-all duration-700"
         style={{
-          backgroundImage: `url(http://localhost:5000/uploads/${images[current]})`
+          backgroundImage: `url(${API}/uploads/${images[current]})`
           }}
         >
       </div>

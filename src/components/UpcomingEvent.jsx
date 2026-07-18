@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import EventCard from "./EventCard.jsx";
 import { getEvent } from "../services/DB.js";
+const API = import.meta.env.VITE_LINK_BE
 
 const getConfig = () => {
   const width = window.innerWidth;
@@ -15,7 +16,7 @@ const getConfig = () => {
 };
 
 const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
-
+const API = import.meta.env.VITE_LINK_BE
  const [event, setEvent] = useState([]);
   useEffect(() => {
     const fetchEvent = async () => {
@@ -70,7 +71,7 @@ const UpcomingEvent = ({ aos, aosDelay, aosDuration }) => {
           event.slice(0, visibleCount).map((item, i) => (
             <EventCard
               key={i}
-              img={`http://localhost:5000/uploads/${item.img}`}
+              img={`${API}/uploads/${item.img}`}
               link={item.url}
             />
         ))}
