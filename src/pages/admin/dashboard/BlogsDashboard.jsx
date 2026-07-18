@@ -7,6 +7,7 @@
   import { getBlog, editBlog, deleteBlog } from "../../../services/API/blogAPI.js";
   import DashboardCard from "../../../components/DashboardCard.jsx";
 
+const API = import.meta.env.VITE_LINK_BE
   const blogFields = [
     { key: "judul", label: "judul", type: "text" },
     { key: "date", label: "date", type: "text" },
@@ -137,7 +138,7 @@
                     <DashboardCard
                       key={item.id}
                       division={item.judul}
-                      image={`http://localhost:5000/uploads/${item.img}`}
+                      image={`${API}/uploads/${item.img}`}
                       description={item.date}
                       onClick={() =>
                         setSelected((prev) =>
@@ -161,7 +162,7 @@
                   title="Blog"
                   fields={blogFields}
                   data={selected}
-                  image={`http://localhost:5000/uploads/${selected.img}`}
+                  image={`${API}/uploads/${selected.img}`}
                   setBlog={setBlog}
                   onDeleteSuccess={handleDeleteSuccess}
                   active={active}
