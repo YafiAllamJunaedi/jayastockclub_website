@@ -3,6 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import Footer from "../../components/Footer.jsx";
 import { getBlog } from "../../services/DB.js";
 import BlogNav from "../../components/BlogNav.jsx";
+const API = import.meta.env.VITE_LINK_BE
 
 const LatestBlogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -57,7 +58,7 @@ const LatestBlogs = () => {
               <div className="w-full flex flex-col items-center pt-3">
                 <img
                   className="w-64"
-                  src={`http://localhost:5000/uploads/${selectedBlog.img}`}
+                  src={`${API}/uploads/${selectedBlog.img}`}
                   alt={selectedBlog.judul}
                 />
                 <p className="p-3">

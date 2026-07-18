@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import GalleryCard from "../../components/GalleryCard.jsx";
 import { getGallery } from "../../services/DB.js";
+const API = import.meta.env.VITE_LINK_BE
 
 const Gallery = () => {
   const [gallery, setGallery] = useState([]);
@@ -28,7 +29,7 @@ const Gallery = () => {
             key={idx.id}
             date={idx.date}
             title={idx.judul}
-            image={`http://localhost:5000/uploads/${idx.img}`}
+            image={`${API}/uploads/${idx.img}`}
           />
         ))}
       </div>

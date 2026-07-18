@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../../components/Card.jsx";
 import { getPrestasi } from "../../services/DB.js";
+const API = import.meta.env.VITE_LINK_BE
 
 const Achievements = () => {
   const [prestasi, setPrestasi] = useState([]);
@@ -35,7 +36,7 @@ const Achievements = () => {
             location={idx.lokasi}
             title={idx.judul}
             detail={idx.detail}
-            image={`http://localhost:5000/uploads/${idx.img}`}
+            image={`${API}/uploads/${idx.img}`}
           />
         ))}
       </div>

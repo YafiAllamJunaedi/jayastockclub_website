@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import DivisionCard from "../../components/DivisionCard.jsx";
 import { getPengurus } from "../../services/DB.js";
+const API = import.meta.env.VITE_LINK_BE
 
 const Divisions = () => {
   const [pengurus, setPengurus] = useState([]);
@@ -41,7 +42,7 @@ const Divisions = () => {
             <DivisionCard
               key={idx.id}
               label={idx.Divisi}
-              image={`http://localhost:5000/uploads/${idx.img}`}
+              image={`${API}/uploads/${idx.img}`}
               text={idx.about}
               type="hijau"
             />
